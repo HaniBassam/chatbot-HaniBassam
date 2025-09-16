@@ -4,23 +4,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Chatbot</title>
     <link rel="stylesheet" href="/style.css" />
-    <!-- Inter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
-    <!-- Topbar -->
-    <header">
-      <div class="topbar__inner">
-        <div class="brand">
-          <img src="/img/logo.png" alt="Chatbot logo" class="logo" />
-        </div>
-      </div>
-    </header>
     <main class="container">
       <ul class="chat" id="chat">
         <% history.forEach(item => { %>
@@ -38,37 +23,28 @@
           </li>
         <% }) %>
       </ul>
-
-      <!-- typing indicator (shown while request is in-flight) -->
-      <div id="typing" class="typing" style="display:none">
-        <span></span><span></span><span></span>
-      </div>
-
-      <!-- Sticky input bar -->
-      <div class="input-wrapper">
-        <form class="input-bar" id="chat-form" method="POST" action="/chat">
-          <input
-            type="text"
-            name="name"
-            placeholder="Dit navn"
-            value="<%= name %>"
-            autocomplete="off"
-            aria-label="Dit navn"
-          />
-          <input
-            type="text"
-            name="message"
-            placeholder="Skriv din besked…"
-            value=""
-            autocomplete="off"
-            aria-label="Din besked"
-          />
-          <button type="submit" id="send-btn">Send</button>
-          <% if (error) { %>
-            <p class="error" role="alert"><%= error %></p>
-          <% } %>
-        </form>
-      </div>
+      <form class="input-bar" id="chat-form" method="POST" action="/chat">
+        <input
+          type="text"
+          name="name"
+          placeholder="Dit navn"
+          value="<%= name %>"
+          autocomplete="off"
+          aria-label="Dit navn"
+        />
+        <input
+          type="text"
+          name="message"
+          placeholder="Skriv din besked…"
+          value=""
+          autocomplete="off"
+          aria-label="Din besked"
+        />
+        <button type="submit" id="send-btn">Send</button>
+        <% if (error) { %>
+          <p class="error" role="alert"><%= error %></p>
+        <% } %>
+      </form>
     </main>
 
   </body>
