@@ -30,6 +30,10 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/chat", (req, res) => {
+  res.render("index", { title: "Chatbot", messages: [] });
+});
+
 app.listen(PORT, () => {
   console.log(`Chatbot running on http://localhost:${PORT}`);
 });
