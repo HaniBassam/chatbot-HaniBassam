@@ -32,7 +32,7 @@ body {
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial,
     sans-serif;
   margin: 0;
-  padding: 2rem 1rem 3rem;
+  padding: 2rem 1rem 6rem; /* ekstra plads i bunden */
 }
 
 .logo {
@@ -41,8 +41,41 @@ body {
 }
 
 .input-bar {
-  position: sticky;
-  bottom: 0;
-  background: 1400px 6000px at 50% -0%, #343d50 30%, var(--bg) 70%;
-  padding: 1rem 0;
+  position: fixed; /* fastlåst nederst på skærmen */
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 3px solid #3c0c5d;
+  border-radius: 18px 18px 0 0; /* afrunding i toppen */
+  padding: 1rem;
+  background: #fff;
+  z-index: 1000; /* så den ligger ovenpå chatten */
+}
+
+.input-bar input[type="text"] {
+  flex: 1; /* gør felterne store */
+  padding: 0.8rem 1rem;
+  border: 1px solid #3c0c5d;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.input-bar button {
+  padding: 0.8rem 1.5rem;
+  border: 1px solid #4a437f;
+  border-radius: 8px;
+  background: #3c0c5d;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.input-bar button:hover {
+  background: #3c0c5d;
 }
