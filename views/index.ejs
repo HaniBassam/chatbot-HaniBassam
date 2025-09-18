@@ -1,48 +1,92 @@
-<!DOCTYPE html>
 <html lang="da">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Chatbot</title>
     <link rel="stylesheet" href="/style.css" />
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <main class="container">
-      <ul class="chat" id="chat">
-        <% history.forEach(item => { %>
-          <% if (item.message) { %>
-            <%- include("partials/user", { item }) %>
-          <% } else { %>
-            <%- include("partials/bot", { item }) %>
-          <% } %>
-        <% }) %>
-      </ul>
+    <!-- Topbar -->
+    <header>
+      <div class="topbar__inner">
+        <div class="brand">
+          <img src="/img/logo.png" alt="Chatbot logo" class="logo" />
+        </div>
+      </div>
+    </header>
 
-      <form class="input-bar" id="chat-form" method="POST" action="/chat">
-        <input
-          type="text"
-          name="name"
-          placeholder="Dit navn"
-          value="<%= name %>"
-          autocomplete="off"
-          aria-label="Dit navn"
-          required
-        />
-        <input
-          type="text"
-          name="message"
-          placeholder="Skriv din besked…"
-          value=""
-          autocomplete="off"
-          aria-label="Din besked"
-          required
-          autofocus
-        />
-        <button type="submit" id="send-btn">Send</button>
-        <% if (error) { %>
+    <main>
+      <!-- Scrollable chat panel -->
+      <div class="chat-panel" id="chatPanel">
+        <ul class="chat" id="chat">
+          <% history.forEach(item => { %> <% if (item.message) { %> <%-
+          include("partials/user", { item }) %> <% } else { %> <%-
+          include("partials/bot", { item }) %> <% } %> <% }) %>
+        </ul>
+      </div>
+
+      <!-- typing indicator (shown while request is in-flight) -->
+      <div id="typing" class="typing" style="display: none">
+        <span></span><span></span><span></span>
+      </div>
+
+      <!-- Sticky input bar -->
+      <div class="input-wrapper">
+        <form class="input-bar" id="chat-form" method="POST" action="/chat">
+          <input
+            type="text"
+            name="name"
+            placeholder="Dit navn"
+            value="<%= name %>"
+            autocomplete="off"
+            aria-label="Dit navn"
+          />
+          <input
+            type="text"
+            name="message"
+            placeholder="Skriv din besked…"
+            value=""
+            autocomplete="off"
+            aria-label="Din besked"
+          />
+          <button type="submit" id="send-btn">Send</button>
+          <% if (error) { %>
           <p class="error" role="alert"><%= error %></p>
-        <% } %>
-      </form>
+          <% } %>
+        </form>
+      </div>
     </main>
+
+    <!-- Bevar scroll-positionen hen over SSR redirect -->
+    <script>
+      (function () {
+        const panel = document.getElementById("chatPanel");
+        const KEY = "chatScrollTop";
+
+        // restore scroll
+        const saved = sessionStorage.getItem(KEY);
+        if (saved !== null) {
+          try {
+            panel.scrollTop = parseInt(saved, 10);
+          } catch (_) {}
+        }
+
+        // save on unload & før submit
+        window.addEventListener("beforeunload", () => {
+          sessionStorage.setItem(KEY, panel.scrollTop);
+        });
+        const form = document.getElementById("chat-form");
+        form?.addEventListener("submit", () => {
+          sessionStorage.setItem(KEY, panel.scrollTop);
+        });
+      })();
+    </script>
   </body>
 </html>
