@@ -23,9 +23,9 @@ body {
 
 body {
   background: radial-gradient(
-      1200px 800px at 70% -10%,
-      #101726 0%,
-      var(--bg) 60%
+      1400px 6000px at 50% -0%,
+      #343d50 30%,
+      var(--bg) 70%
     )
     fixed;
   color: var(--text);
@@ -36,149 +36,13 @@ body {
 }
 
 .logo {
-  height: 300px;
+  height: 100px;
   width: auto;
 }
 
-/* Headings */
-h1 {
-  color: var(--text);
-  text-align: center;
-  text-transform: none;
-  font-weight: 600;
-  letter-spacing: 0.2px;
-  font-size: 2rem;
-  margin: 0 0 1rem;
-}
-
-h3 {
-  color: var(--text);
-  text-align: center;
-  font-size: 1.125rem;
-  margin: 2rem auto 0.75rem;
-  opacity: 0.9;
-}
-
-/* === Topbar and Footer === */
-.topbar,
-.footer {
-  max-width: 720px;
-  margin: 0 auto 1rem auto;
-  padding: 0.5rem 1rem;
-  color: var(--muted);
-  font-size: 0.875rem;
-  text-align: center;
-  user-select: none;
-}
-
-/* === Card / Form panel === */
-form {
-  padding: 1.25rem;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background-color: var(--panel);
-  max-width: 720px;
-  margin: 0 auto 1.25rem auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  box-shadow: var(--shadow);
-}
-
-/* Inputs */
-form input[type="text"] {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  background-color: var(--panel-2);
-  color: var(--text);
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease,
-    background-color 0.2s ease;
-}
-
-form input[type="text"]::placeholder {
-  color: var(--muted);
-}
-
-form input[type="text"]:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
-  background-color: #0c1426;
-}
-
-/* Button */
-form button {
-  padding: 0.9rem 1.5rem;
-  font-size: 1rem;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background-color: var(--accent);
-  color: #061013;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.15s ease, transform 0.05s ease,
-    box-shadow 0.15s ease;
-  align-self: center;
-  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.25);
-}
-
-form button:hover {
-  background-color: var(--accent-2);
-}
-
-form button:active {
-  background-color: var(--accent-3);
-  transform: translateY(1px);
-}
-
-/* === Chat history (chat bubbles) === */
-.chat {
-  max-width: 720px;
-  margin: 0.75rem auto 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.chat .bubble {
-  max-width: 75%;
-  padding: 0.8rem 1rem;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  font-size: 1rem;
-  line-height: 1.4;
-  position: relative;
-  word-wrap: break-word;
-}
-
-/* User bubble */
-.chat .bubble.user {
-  background-color: var(--accent);
-  color: #061013;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px;
-}
-
-/* Bot bubble */
-.chat .bubble.bot {
-  background-color: var(--panel-2);
-  color: var(--text);
-  align-self: flex-start;
-  border-bottom-left-radius: 4px;
-}
-
-.chat .bubble small {
-  display: block;
-  margin-top: 0.25rem;
-  color: rgb(0, 0, 0);
-  font-size: 0.75rem;
-}
-
-/* Spacing helpers */
-.container-spacer {
-  height: 0.5rem;
+.input-bar {
+  position: sticky;
+  bottom: 0;
+  background: 1400px 6000px at 50% -0%, #343d50 30%, var(--bg) 70%;
+  padding: 1rem 0;
 }
