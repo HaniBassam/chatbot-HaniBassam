@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="da">
   <head>
     <meta charset="utf-8" />
@@ -9,20 +10,14 @@
     <main class="container">
       <ul class="chat" id="chat">
         <% history.forEach(item => { %>
-          <li class="msg user">
-            <div class="bubble">
-              <div class="text"><%= item.message %></div>
-              <small class="meta"><%= item.ts %> · <%= item.name || "Bruger" %></small>
-            </div>
-          </li>
-          <li class="msg bot">
-            <div class="bubble">
-              <div class="text"><%= item.answer %></div>
-              <small class="meta"><%= item.ts %> · Bot</small>
-            </div>
-          </li>
+          <% if (item.message) { %>
+            <%- include("partials/user", { item }) %>
+          <% } else { %>
+            <%- include("partials/bot", { item }) %>
+          <% } %>
         <% }) %>
       </ul>
+
       <form class="input-bar" id="chat-form" method="POST" action="/chat">
         <input
           type="text"
@@ -31,6 +26,7 @@
           value="<%= name %>"
           autocomplete="off"
           aria-label="Dit navn"
+          required
         />
         <input
           type="text"
@@ -39,6 +35,8 @@
           value=""
           autocomplete="off"
           aria-label="Din besked"
+          required
+          autofocus
         />
         <button type="submit" id="send-btn">Send</button>
         <% if (error) { %>
@@ -46,6 +44,5 @@
         <% } %>
       </form>
     </main>
-
   </body>
 </html>
