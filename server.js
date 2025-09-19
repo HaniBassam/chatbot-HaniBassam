@@ -76,7 +76,10 @@ app.post("/chat", async (req, res, next) => {
     }
 
     const answer = await getReply(message, name);
-    history.push({ name, message, answer, ts: new Date().toISOString() });
+    const ts = new Date().toISOString();
+
+    history.push({ type: "user", name, text: message, ts });
+    history.push({ type: "bot", name: "Hanibot", text: answer, ts });
 
     res.render("index", { name, message: "", answer, history, error: "" });
   } catch (err) {
