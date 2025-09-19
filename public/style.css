@@ -21,6 +21,12 @@ body {
   height: 100%;
 }
 
+.brand {
+  padding: 0; /* remove excess padding */
+  margin-bottom: 0.5rem; /* just a little gap below logo */
+  text-align: center;
+}
+
 body {
   background: radial-gradient(
       1400px 6000px at 50% -0%,
@@ -36,8 +42,10 @@ body {
 }
 
 .logo {
-  height: 100px;
+  height: 150px; /* smaller logo */
   width: auto;
+  display: block;
+  margin: 0 auto 1rem; /* keep it centered with spacing */
 }
 
 .input-bar {
@@ -80,17 +88,37 @@ body {
   background: #3c0c5d;
 }
 
-/* === Scrollable chat panel === */
+/* Subtle scrollbar styling */
 .chat-panel {
   border: 2px solid #3c0c5d;
-  border-radius: 12px;
-  background: #ffffff;
-  color: #111;
+  border-radius: 15px;
+  background: #1e2337;
+  color: #302f2f;
   padding: 0.75rem;
-  height: 60vh; /* stor firkant */
-  overflow-y: auto; /* scroll her */
+  height: 60vh;
+  overflow-y: auto;
   margin: 0 auto 1rem auto;
-  max-width: 720px;
+  max-width: 920px;
+  margin: -1rem auto 1rem auto; /* pull upwards */
+
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #ffffff #1e2337; /* thumb color | track color */
+}
+
+/* Chrome, Safari, Edge */
+.chat-panel::-webkit-scrollbar {
+  width: 6px; /* small scrollbar */
+}
+.chat-panel::-webkit-scrollbar-track {
+  background: #1e2337; /* dark track */
+  border-radius: 8px;
+}
+.chat-panel::-webkit-scrollbar-thumb {
+  background-color: #3c0c5d; /* purple thumb */
+  border-radius: 8px;
+}
+.chat-panel::-webkit-scrollbar-thumb:hover {
+  background-color: #5d3c8d; /* lighter on hover */
 }
 
 /* Chat list */
@@ -114,20 +142,28 @@ body {
   justify-content: flex-start;
 }
 
-.bubble {
-  padding: 0.8rem 1rem;
-  border-radius: 10px;
-  box-shadow: var(--shadow);
-  max-width: 75%;
-  word-wrap: break-word;
-}
-.bubble--user {
-  background: #f7f7ff;
-  border: 1px solid #3c0c5d;
-}
+/* Bot-beskeder */
 .bubble--bot {
-  background: #f8fff7;
-  border: 1px solid #ddd;
+  background: #1e2337; /* mørk panel farve */
+  border: 1px solid #3c0c5d; /* lilla border */
+  color: var(--text); /* lys tekst */
+}
+
+/* Bruger-beskeder */
+.bubble--user {
+  background: #3c0c5d; /* lilla baggrund */
+  border: 1px solid #3c0c5d; /* samme lilla */
+  color: #ffffff; /* hvid tekst */
+}
+
+/* Giv begge bobler lidt mere “kort”-følelse */
+.bubble {
+  padding: 0.9rem 1.1rem;
+  border-radius: 22px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  max-width: 70%;
+  word-wrap: break-word;
 }
 
 .bubble strong {
