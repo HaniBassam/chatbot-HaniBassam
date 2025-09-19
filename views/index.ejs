@@ -26,9 +26,23 @@
       <!-- Scrollable chat panel -->
       <div class="chat-panel" id="chatPanel">
         <ul class="chat" id="chat">
-          <% history.forEach(item => { %> <% if (item.message) { %> <%-
-          include("partials/user", { item }) %> <% } else { %> <%-
-          include("partials/bot", { item }) %> <% } %> <% }) %>
+          <% history.forEach((item) => { %>
+          <% if (item.type === "user") { %>
+          <li class="chat__item chat__item--user">
+            <div class="bubble bubble--user">
+              <strong><%= item.name || "Anonym" %>:</strong>
+              <span><%= item.text %></span>
+            </div>
+          </li>
+          <% } else if (item.type === "bot") { %>
+          <li class="chat__item chat__item--bot">
+            <div class="bubble bubble--bot">
+              <strong><%= item.name %>:</strong>
+              <span><%= item.text %></span>
+            </div>
+          </li>
+          <% } %>
+          <% }) %>
         </ul>
       </div>
 
@@ -52,9 +66,9 @@
             type="text"
             name="message"
             placeholder="Skriv din besked…"
-            value=""
+            value="<%= message %>"
             autocomplete="off"
-            aria-label="Din besked"
+            aria-label="Skriv din besked…"
           />
           <button type="submit" id="send-btn">Send</button>
           <% if (error) { %>
