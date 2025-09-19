@@ -25,6 +25,12 @@ function timeGreeting() {
   return "god aften 🌙";
 }
 
+/**
+ * Gets a reply to a message based on the responses.js file.
+ * @param {string} message - The message to reply to.
+ * @param {string} name - The name of the user asking the question.
+ * @returns {string} The reply to the user.
+ */
 async function getReply(message, name) {
   const lower = (message || "").toLowerCase();
   for (const r of responses) {
