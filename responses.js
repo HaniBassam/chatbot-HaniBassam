@@ -24,7 +24,7 @@ const responses = [
       "hvem er din far",
       "hvem?",
     ],
-    answers: ["Hanibossam er min skaber! 😎", "The bossman! 🤩"],
+    answers: ["Hani bassam er min skaber! 😎", "The bossman! 🤩"],
   },
   {
     keywords: ["tak", "thank you", "mange tak"],

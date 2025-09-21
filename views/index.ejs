@@ -26,8 +26,7 @@
       <!-- Scrollable chat panel -->
       <div class="chat-panel" id="chatPanel">
         <ul class="chat" id="chat">
-          <% history.forEach((item) => { %>
-          <% if (item.type === "user") { %>
+          <% history.forEach((item) => { %> <% if (item.type === "user") { %>
           <li class="chat__item chat__item--user">
             <div class="bubble bubble--user">
               <strong><%= item.name || "Anonym" %>:</strong>
@@ -41,8 +40,7 @@
               <span><%= item.text %></span>
             </div>
           </li>
-          <% } %>
-          <% }) %>
+          <% } %> <% }) %>
         </ul>
       </div>
 
@@ -79,26 +77,48 @@
     </main>
 
     <!-- Bevar scroll-positionen hen over SSR redirect -->
+    <!-- Auto-scroll to bottom after sending a new message -->
     <script>
       (function () {
         const panel = document.getElementById("chatPanel");
-        const KEY = "chatScrollTop";
+        const form = document.getElementById("chat-form");
 
-        // restore scroll
-        const saved = sessionStorage.getItem(KEY);
-        if (saved !== null) {
-          try {
-            panel.scrollTop = parseInt(saved, 10);
-          } catch (_) {}
+        const KEY = "chatScrollTop"; // last scroll position
+        const SCROLL_AFTER_POST = "scrollAfterPost"; // flag to jump to bottom after submit
+
+        // If we just posted a message, jump to the newest one
+        if (sessionStorage.getItem(SCROLL_AFTER_POST) === "1") {
+          panel.scrollTop = panel.scrollHeight;
+          sessionStorage.removeItem(SCROLL_AFTER_POST);
+        } else {
+          // Otherwise, restore previous scroll position if any
+          const saved = sessionStorage.getItem(KEY);
+          if (saved !== null) {
+            const val = parseInt(saved, 10);
+            if (!Number.isNaN(val)) panel.scrollTop = val;
+          }
         }
 
-        // save on unload & før submit
+        // Save position when leaving the page
         window.addEventListener("beforeunload", () => {
           sessionStorage.setItem(KEY, panel.scrollTop);
         });
-        const form = document.getElementById("chat-form");
+
+        // Before submitting, set a flag so we auto-scroll to bottom after the redirect
         form?.addEventListener("submit", () => {
-          sessionStorage.setItem(KEY, panel.scrollTop);
+          sessionStorage.setItem(SCROLL_AFTER_POST, "1");
+        });
+      })();
+    </script>
+
+    <!-- Show typing indicator while waiting for response -->
+    <script>
+      (function () {
+        const form = document.getElementById("chat-form");
+        const typing = document.getElementById("typing");
+
+        form?.addEventListener("submit", () => {
+          typing.style.display = "block";
         });
       })();
     </script>
