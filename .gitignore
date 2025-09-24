@@ -1,4 +1,4 @@
 node_modules/
 dist/
-.env
+OPEN-AI-KEY/.env
 .DS_Store
