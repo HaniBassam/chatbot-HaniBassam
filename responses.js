@@ -45,7 +45,7 @@ const responses = [
   {
     keywords: ["glad", "fantastisk", "super"],
     answers: [
-      "Hvor fedt at høre lan! 🌞",
+      "hor fedt at høre lan! 🌞",
       "Elsker at høre det – keep shining champ ✨",
     ],
   },
