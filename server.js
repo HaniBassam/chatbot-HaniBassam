@@ -5,6 +5,9 @@ import { readFile, writeFile } from "fs/promises";
 import crypto from "crypto";
 import { fileURLToPath } from "url";
 import { responses } from "./responses.js";
+import { fetchLlmReply, logUnansweredQuestion } from "./lib/llm.js";
+import dotenv from "dotenv";
+dotenv.config({ path: "./OPEN-AI-KEY/.env" });
 
 const app = express();
 const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
@@ -13,13 +16,64 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_FILE = path.join(__dirname, "data", "messages.json");
 
+const MAX_MESSAGE_LENGTH = Number(process.env.MESSAGE_MAX_LENGTH || 500);
+const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || "http://localhost:3000,http://localhost:5173").split(",").map((o) => o.trim()).filter(Boolean);
+
+class HttpError extends Error {
+  constructor(status, message, details) {
+    super(message);
+    this.status = status;
+    this.details = details;
+  }
+}
+
+function sanitizeInput(value) {
+  if (typeof value !== "string") return "";
+  return value
+    .replace(/<[^>]*?>/g, "")
+    .replace(/[\u0000-\u001F\u007F]/g, "")
+    .trim();
+}
+
+function validateMessageFields({ text, sender }) {
+  const sanitizedText = sanitizeInput(text);
+  const sanitizedSender = sanitizeInput(sender);
+
+  if (!sanitizedText) {
+    throw new HttpError(400, "Text is required");
+  }
+
+  if (sanitizedText.length > MAX_MESSAGE_LENGTH) {
+    throw new HttpError(413, `Text må højst være ${MAX_MESSAGE_LENGTH} tegn`);
+  }
+
+  if (!sanitizedSender) {
+    throw new HttpError(400, "Sender is required");
+  }
+
+  if (sanitizedSender.length > 80) {
+    throw new HttpError(413, "Sender må højst være 80 tegn");
+  }
+
+  return { text: sanitizedText, sender: sanitizedSender };
+}
+
 // --- Setup ---
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(cors());
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || ALLOWED_ORIGINS.includes(origin)) {
+        return callback(null, true);
+      }
+      callback(new HttpError(403, "Ikke tilladt oprindelse"));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 // --- Persistence helpers ---
 async function readMessages() {
@@ -37,6 +91,30 @@ async function readMessages() {
 
 async function writeMessages(messages) {
   await writeFile(DATA_FILE, JSON.stringify(messages, null, 2), "utf-8");
+}
+
+function mapStoredToHistory(entry) {
+  const sender = entry.sender || "";
+  const type = sender.toLowerCase() === "hanibot" || sender.toLowerCase() === "chatbot" ? "bot" : "user";
+  return {
+    id: entry.id,
+    type,
+    name: sender,
+    text: entry.text,
+    ts: entry.date,
+  };
+}
+
+let history = [];
+
+async function hydrateHistory() {
+  try {
+    const stored = await readMessages();
+    history = stored.map(mapStoredToHistory);
+  } catch (err) {
+    console.error("[history:error] Kunne ikke hente tidligere beskeder", err);
+    history = [];
+  }
 }
 
 // --- Helpers (kept here to avoid extra files) ---
@@ -65,110 +143,80 @@ async function getReply(message, name) {
         .replace(/{{\s*greet\s*}}/g, greet);
     }
   }
+  await logUnansweredQuestion(message, name);
+
+  const llmAnswer = await fetchLlmReply(message, name);
+  if (llmAnswer) {
+    return llmAnswer;
+  }
+
   return `Jeg har ikke noget smart svar på det endnu, ${name || "ven"} 🤖`;
 }
 
-// --- In-memory history ---
-const history = [];
-
 // --- Routes ---
 app.get("/", (req, res) => {
-  res.render("index", {
-    name: "",
-    message: "",
-    answer: "",
-    history,
-    error: "",
-  });
+  res.render("index");
 });
 app.get("/chat", (req, res) => res.redirect("/"));
 
-app.post("/chat", async (req, res, next) => {
-  try {
-    const name = (req.body?.name || "Anonym").trim();
-    const message = (req.body?.message || "").trim();
-
-    if (!message) {
-      return res.render("index", {
-        name,
-        message: "",
-        answer: "",
-        history,
-        error: "⚠️ Skriv en besked først.",
-      });
-    }
-
-    const answer = await getReply(message, name);
-    const ts = new Date().toISOString();
-
-    const userEntry = { type: "user", name, text: message, ts };
-    const botEntry = { type: "bot", name: "Hanibot", text: answer, ts };
-
-    history.push(userEntry);
-    history.push(botEntry);
-
-    try {
-      const messages = await readMessages();
-      messages.push(
-        {
-          id: crypto.randomUUID(),
-          date: ts,
-          text: message,
-          sender: name || "Anonym",
-        },
-        {
-          id: crypto.randomUUID(),
-          date: new Date().toISOString(),
-          text: answer,
-          sender: "Hanibot",
-        }
-      );
-      await writeMessages(messages);
-    } catch (persistErr) {
-      console.error("Kunne ikke gemme beskeder", persistErr);
-    }
-
-    res.render("index", { name, message: "", answer, history, error: "" });
-  } catch (err) {
-    next(err);
-  }
-});
-
 // --- REST API ---
-app.get("/messages", async (req, res, next) => {
+async function getHistory(req, res, next) {
   try {
-    const messages = await readMessages();
-    res.json(messages);
+    res.json(history);
   } catch (err) {
     next(err);
   }
-});
+}
 
-app.post("/messages", async (req, res, next) => {
+app.get("/api/messages", getHistory);
+app.get("/messages", getHistory);
+
+app.post(["/api/messages", "/messages"], async (req, res, next) => {
   try {
-    const { text, sender } = req.body || {};
-    if (!text || !sender) {
-      return res.status(400).json({ error: "Text and sender required" });
-    }
+    const { text, sender } = validateMessageFields(req.body || {});
 
-    const newMessage = {
+    const userMessage = {
       id: crypto.randomUUID(),
-      date: new Date().toISOString(),
+      type: "user",
+      name: sender,
       text,
-      sender,
+      ts: new Date().toISOString(),
     };
 
     const messages = await readMessages();
-    messages.push(newMessage);
+    messages.push({
+      id: userMessage.id,
+      date: userMessage.ts,
+      text: userMessage.text,
+      sender: userMessage.name,
+    });
+
+    const answer = await getReply(text, sender);
+    const botMessage = {
+      id: crypto.randomUUID(),
+      type: "bot",
+      name: "Hanibot",
+      text: answer,
+      ts: new Date().toISOString(),
+    };
+
+    messages.push({
+      id: botMessage.id,
+      date: botMessage.ts,
+      text: botMessage.text,
+      sender: botMessage.name,
+    });
+
+    history.push(userMessage, botMessage);
     await writeMessages(messages);
 
-    res.status(201).json(newMessage);
+    res.status(201).json({ userMessage, botMessage });
   } catch (err) {
     next(err);
   }
 });
 
-app.put("/messages/:id", async (req, res, next) => {
+app.put(["/api/messages/:id", "/messages/:id"], async (req, res, next) => {
   try {
     const { id } = req.params;
     const { text, sender } = req.body || {};
@@ -179,11 +227,35 @@ app.put("/messages/:id", async (req, res, next) => {
       return res.status(404).json({ error: "Message not found" });
     }
 
-    if (typeof text === "string" && text.trim()) {
-      message.text = text;
+    if (typeof text === "string") {
+      const cleanText = sanitizeInput(text);
+      if (!cleanText) {
+        throw new HttpError(400, "Text må ikke være tom");
+      }
+      if (cleanText.length > MAX_MESSAGE_LENGTH) {
+        throw new HttpError(413, `Text må højst være ${MAX_MESSAGE_LENGTH} tegn`);
+      }
+      message.text = cleanText;
+      const historyEntry = history.find((entry) => entry.id === id);
+      if (historyEntry) {
+        historyEntry.text = cleanText;
+      }
     }
-    if (typeof sender === "string" && sender.trim()) {
-      message.sender = sender;
+
+    if (typeof sender === "string") {
+      const cleanSender = sanitizeInput(sender);
+      if (!cleanSender) {
+        throw new HttpError(400, "Sender må ikke være tom");
+      }
+      if (cleanSender.length > 80) {
+        throw new HttpError(413, "Sender må højst være 80 tegn");
+      }
+      message.sender = cleanSender;
+      const historyEntry = history.find((entry) => entry.id === id);
+      if (historyEntry) {
+        historyEntry.name = cleanSender;
+        historyEntry.type = cleanSender.toLowerCase() === "hanibot" || cleanSender.toLowerCase() === "chatbot" ? "bot" : "user";
+      }
     }
 
     await writeMessages(messages);
@@ -193,7 +265,7 @@ app.put("/messages/:id", async (req, res, next) => {
   }
 });
 
-app.delete("/messages/:id", async (req, res, next) => {
+app.delete(["/api/messages/:id", "/messages/:id"], async (req, res, next) => {
   try {
     const { id } = req.params;
     const messages = await readMessages();
@@ -204,6 +276,7 @@ app.delete("/messages/:id", async (req, res, next) => {
     }
 
     const updated = messages.filter((m) => m.id !== id);
+    history = history.filter((entry) => entry.id !== id);
     await writeMessages(updated);
 
     res.json({ success: true, deleted: message });
@@ -214,19 +287,40 @@ app.delete("/messages/:id", async (req, res, next) => {
 
 // --- Error handler (simple) ---
 app.use((err, req, res, next) => {
-  console.error(err);
+  const status = err instanceof HttpError && err.status ? err.status : 500;
+  const payload = {
+    error: err.message || "Server error",
+  };
+
+  if (err instanceof HttpError && err.details) {
+    payload.details = err.details;
+  }
+
+  if (status >= 500) {
+    console.error("[server error]", err);
+  }
+
   if (res.headersSent) {
     return next(err);
   }
-  res.status(500);
+
+  res.status(status);
   if (req.accepts("json")) {
-    res.json({ error: "Server error" });
+    res.json(payload);
   } else {
-    res.type("text").send("Server error");
+    res.type("text").send(payload.error);
   }
 });
 
 // --- Start ---
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+async function start() {
+  await hydrateHistory();
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running at http://localhost:${PORT}`);
+  });
+}
+
+start().catch((err) => {
+  console.error("Kunne ikke starte serveren", err);
+  process.exit(1);
 });
