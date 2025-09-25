@@ -95,7 +95,7 @@ async function writeMessages(messages) {
 
 function mapStoredToHistory(entry) {
   const sender = entry.sender || "";
-  const type = sender.toLowerCase() === "hanibot" || sender.toLowerCase() === "chatbot" ? "bot" : "user";
+  const type = sender.toLowerCase() === "chatbot" || sender.toLowerCase() === "chatbot" ? "bot" : "user";
   return {
     id: entry.id,
     type,
@@ -195,7 +195,7 @@ app.post(["/api/messages", "/messages"], async (req, res, next) => {
     const botMessage = {
       id: crypto.randomUUID(),
       type: "bot",
-      name: "Hanibot",
+      name: "Chatbot",
       text: answer,
       ts: new Date().toISOString(),
     };
@@ -254,7 +254,7 @@ app.put(["/api/messages/:id", "/messages/:id"], async (req, res, next) => {
       const historyEntry = history.find((entry) => entry.id === id);
       if (historyEntry) {
         historyEntry.name = cleanSender;
-        historyEntry.type = cleanSender.toLowerCase() === "hanibot" || cleanSender.toLowerCase() === "chatbot" ? "bot" : "user";
+        historyEntry.type = cleanSender.toLowerCase() === "Chatbot" || cleanSender.toLowerCase() === "chatbot" ? "bot" : "user";
       }
     }
 
@@ -280,6 +280,16 @@ app.delete(["/api/messages/:id", "/messages/:id"], async (req, res, next) => {
     await writeMessages(updated);
 
     res.json({ success: true, deleted: message });
+  } catch (err) {
+    next(err);
+  }
+});
+
+app.delete(["/api/messages", "/messages"], async (req, res, next) => {
+  try {
+    history = [];
+    await writeMessages([]);
+    res.json({ success: true });
   } catch (err) {
     next(err);
   }
