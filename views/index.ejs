@@ -25,23 +25,7 @@
     <main>
       <!-- Scrollable chat panel -->
       <div class="chat-panel" id="chatPanel">
-        <ul class="chat" id="chat">
-          <% history.forEach((item) => { %> <% if (item.type === "user") { %>
-          <li class="chat__item chat__item--user">
-            <div class="bubble bubble--user">
-              <strong><%= item.name || "Anonym" %>:</strong>
-              <span><%= item.text %></span>
-            </div>
-          </li>
-          <% } else if (item.type === "bot") { %>
-          <li class="chat__item chat__item--bot">
-            <div class="bubble bubble--bot">
-              <strong><%= item.name %>:</strong>
-              <span><%= item.text %></span>
-            </div>
-          </li>
-          <% } %> <% }) %>
-        </ul>
+        <ul class="chat" id="chat"></ul>
       </div>
 
       <!-- typing indicator (shown while request is in-flight) -->
@@ -51,12 +35,11 @@
 
       <!-- Sticky input bar -->
       <div class="input-wrapper">
-        <form class="input-bar" id="chat-form" method="POST" action="/chat">
+        <form class="input-bar" id="chat-form" novalidate>
           <input
             type="text"
             name="name"
             placeholder="Dit navn"
-            value="<%= name %>"
             autocomplete="off"
             aria-label="Dit navn"
           />
@@ -64,63 +47,15 @@
             type="text"
             name="message"
             placeholder="Skriv din besked…"
-            value="<%= message %>"
             autocomplete="off"
             aria-label="Skriv din besked…"
           />
           <button type="submit" id="send-btn">Send</button>
-          <% if (error) { %>
-          <p class="error" role="alert"><%= error %></p>
-          <% } %>
+          <p class="error" id="error" role="alert" hidden></p>
         </form>
       </div>
     </main>
 
-    <!-- Bevar scroll-positionen hen over SSR redirect -->
-    <!-- Auto-scroll to bottom after sending a new message -->
-    <script>
-      (function () {
-        const panel = document.getElementById("chatPanel");
-        const form = document.getElementById("chat-form");
-
-        const KEY = "chatScrollTop"; // last scroll position
-        const SCROLL_AFTER_POST = "scrollAfterPost"; // flag to jump to bottom after submit
-
-        // If we just posted a message, jump to the newest one
-        if (sessionStorage.getItem(SCROLL_AFTER_POST) === "1") {
-          panel.scrollTop = panel.scrollHeight;
-          sessionStorage.removeItem(SCROLL_AFTER_POST);
-        } else {
-          // Otherwise, restore previous scroll position if any
-          const saved = sessionStorage.getItem(KEY);
-          if (saved !== null) {
-            const val = parseInt(saved, 10);
-            if (!Number.isNaN(val)) panel.scrollTop = val;
-          }
-        }
-
-        // Save position when leaving the page
-        window.addEventListener("beforeunload", () => {
-          sessionStorage.setItem(KEY, panel.scrollTop);
-        });
-
-        // Before submitting, set a flag so we auto-scroll to bottom after the redirect
-        form?.addEventListener("submit", () => {
-          sessionStorage.setItem(SCROLL_AFTER_POST, "1");
-        });
-      })();
-    </script>
-
-    <!-- Show typing indicator while waiting for response -->
-    <script>
-      (function () {
-        const form = document.getElementById("chat-form");
-        const typing = document.getElementById("typing");
-
-        form?.addEventListener("submit", () => {
-          typing.style.display = "block";
-        });
-      })();
-    </script>
+    <script type="module" src="/app.js"></script>
   </body>
 </html>
