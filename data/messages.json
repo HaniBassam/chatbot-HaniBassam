@@ -1,278 +1,38 @@
 [
   {
-    "id": "14944484-95fd-4732-9466-d7519ab1e54b",
-    "date": "2025-09-20T19:43:20.518Z",
-    "text": "Hej",
-    "sender": "hani"
-  },
-  {
-    "id": "78088571-7342-4274-8c26-eff327dd69b3",
-    "date": "2025-09-20T19:43:20.519Z",
-    "text": "Goddag løve – god aften 🌙",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "e3f2af78-d984-4928-8ac2-f025b410ca0b",
-    "date": "2025-09-20T19:43:29.940Z",
-    "text": "hvem er din skaber",
-    "sender": "hani"
-  },
-  {
-    "id": "063a18c4-17f3-4722-9644-84d058d1d293",
-    "date": "2025-09-20T19:43:29.941Z",
-    "text": "Jeg har ikke noget smart svar på det endnu, hani 🤖",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "988d4561-020f-4b36-b997-b3544d2a7126",
-    "date": "2025-09-20T19:43:36.807Z",
-    "text": "hvem er du",
-    "sender": "hani"
-  },
-  {
-    "id": "38a7f2a8-2cb3-47af-9785-f57fbedf4380",
-    "date": "2025-09-20T19:43:36.808Z",
-    "text": "Jeg har ikke noget smart svar på det endnu, hani 🤖",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "9c57a6a2-a810-4523-9164-9aa60bd9329f",
-    "date": "2025-09-20T19:44:28.234Z",
-    "text": "jeg er trist idag",
-    "sender": "hani"
-  },
-  {
-    "id": "644225f2-5d29-4264-8e32-599a73eee466",
-    "date": "2025-09-20T19:44:28.235Z",
-    "text": "Jeg er her for dig, elsket, Vil du snakke om det ❤️ ?",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "0559300a-dca5-4c8a-b710-83b3e8e052a5",
-    "date": "2025-09-20T19:45:32.942Z",
-    "text": "hvem er din skaber",
-    "sender": "hani"
-  },
-  {
-    "id": "b059756a-abcf-4165-bdd1-3888a6c74d59",
-    "date": "2025-09-20T19:45:32.944Z",
-    "text": "Jeg har ikke noget smart svar på det endnu, hani 🤖",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "12921bb1-d682-4aaf-a041-d5c5b8dbe6a7",
-    "date": "2025-09-20T19:45:43.727Z",
-    "text": "hvem lavede dig",
-    "sender": "hani"
-  },
-  {
-    "id": "3e3d7191-c160-44af-ba9e-0a9e5882e20a",
-    "date": "2025-09-20T19:45:43.729Z",
-    "text": "The bossman! 🤩",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "0a0fdf8b-e673-48a5-a317-5b908992a0c0",
-    "date": "2025-09-20T19:45:55.957Z",
-    "text": "hvem er din far",
-    "sender": "hani"
-  },
-  {
-    "id": "0e946f00-398e-4191-a580-7f99bc382c4a",
-    "date": "2025-09-20T19:45:55.957Z",
-    "text": "The bossman! 🤩",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "efc7f313-59c2-42eb-9e1a-992dc4c4a2d7",
-    "date": "2025-09-20T19:46:08.004Z",
-    "text": "the bossman hvem",
-    "sender": "hani"
-  },
-  {
-    "id": "6cff0f28-729b-4393-b342-f1ed1c2800ae",
-    "date": "2025-09-20T19:46:08.005Z",
-    "text": "Jeg har ikke noget smart svar på det endnu, hani 🤖",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "f479cd91-4921-42c5-92c4-2bdca95e7eca",
-    "date": "2025-09-20T19:46:42.493Z",
-    "text": "tak",
-    "sender": "hani"
-  },
-  {
-    "id": "82850e30-031b-468b-9f77-e4e3151c0e69",
-    "date": "2025-09-20T19:46:42.494Z",
-    "text": "Selv tak søster 🙏",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "8735efde-c2c2-47f8-bc66-b3cf5ec70785",
-    "date": "2025-09-20T19:47:04.727Z",
-    "text": "hvordan går det",
-    "sender": "hani"
-  },
-  {
-    "id": "cdb8a994-4f8f-4d10-af94-5ca707b00960",
-    "date": "2025-09-20T19:47:04.728Z",
-    "text": "Jeg har det fint min ven – hvad med dig, hani?",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "8b1d1d91-9f63-4014-b74e-ac193211b82b",
-    "date": "2025-09-20T19:47:19.171Z",
-    "text": "hvem er du",
-    "sender": "Anonym"
-  },
-  {
-    "id": "8c4bd326-81bf-41a7-aae9-2e9c00ad5937",
-    "date": "2025-09-20T19:47:19.172Z",
-    "text": "Jeg har ikke noget smart svar på det endnu, Anonym 🤖",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "5eb1dad9-b308-4703-8ddd-f480fb88e5ff",
-    "date": "2025-09-20T19:47:33.224Z",
-    "text": "hvordan går det",
-    "sender": "Anonym"
-  },
-  {
-    "id": "a55a5dc1-0434-45d7-9315-94626f56884a",
-    "date": "2025-09-20T19:47:33.225Z",
-    "text": "Alt spiller her gamle, – god aften 🌙",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "37510b4e-c1d9-472c-884b-98502bcc0964",
-    "date": "2025-09-20T19:48:19.275Z",
-    "text": "hej",
-    "sender": "Anonym"
-  },
-  {
-    "id": "ef9615cd-eec7-4123-baed-12ed8e4c9d98",
-    "date": "2025-09-20T19:48:19.276Z",
-    "text": "Hvaså løve hvordan kan jeg hjælpe dig idag? 🤙🏾",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "57b5a2ee-4528-43cb-88a9-6c99a914bba3",
-    "date": "2025-09-20T20:07:30.258Z",
-    "text": "hej",
+    "id": "0dcceb8f-47d1-433f-9c1e-d23d414f7fcb",
+    "date": "2025-09-25T14:20:23.124Z",
+    "text": "Hvordan går det",
     "sender": "Hani"
   },
   {
-    "id": "e625d447-4cfb-439e-85fe-465b7e676e0d",
-    "date": "2025-09-20T20:07:30.259Z",
-    "text": "Goddag løve – god aften 🌙",
-    "sender": "Hanibot"
+    "id": "d800e873-5377-445a-9cda-6a89e637de6f",
+    "date": "2025-09-25T14:20:23.125Z",
+    "text": "Alhamdullilah bro 🤙🏽",
+    "sender": "Chatbot"
   },
   {
-    "id": "9c2cb141-360c-446f-b9bc-d485858789d7",
-    "date": "2025-09-20T20:09:16.117Z",
-    "text": "hvem er du",
+    "id": "4474ad0e-fc88-43c5-ab67-bbe9afe6cb6b",
+    "date": "2025-09-25T14:20:37.089Z",
+    "text": "jeg føler mig trist idag",
     "sender": "Hani"
   },
   {
-    "id": "b139b542-5a17-4143-b0ba-6650f5d9425f",
-    "date": "2025-09-20T20:09:16.117Z",
-    "text": "Jeg har ikke noget smart svar på det endnu, Hani 🤖",
-    "sender": "Hanibot"
+    "id": "7f501fa6-fc5b-4697-8c35-3a3810818451",
+    "date": "2025-09-25T14:20:37.090Z",
+    "text": "Øv, det gør mig ked af det at høre BIG G, Hani 🫂",
+    "sender": "Chatbot"
   },
   {
-    "id": "3606bcc4-7b88-4710-966e-248af4418270",
-    "date": "2025-09-20T20:09:32.328Z",
-    "text": "jeg er trist",
-    "sender": "Anonym"
-  },
-  {
-    "id": "1601b69a-f2b5-443f-b4cc-b6df163e11dd",
-    "date": "2025-09-20T20:09:32.328Z",
-    "text": "Øv, det gør mig ked af det at høre BIG G, Anonym 🫂",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "7bfd6f58-d67d-405e-8080-bd962b7d7a7e",
-    "date": "2025-09-20T20:09:55.750Z",
-    "text": "jeg er trist",
-    "sender": "Anonym"
-  },
-  {
-    "id": "81543c7d-bc29-49f8-a8a2-7c56e176bcd8",
-    "date": "2025-09-20T20:09:55.751Z",
-    "text": "Jeg er her for dig, elsket, Vil du snakke om det ❤️ ?",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "d8f55236-415e-466b-8585-292fcfd97e6a",
-    "date": "2025-09-20T20:10:07.494Z",
-    "text": "jeg er trist",
-    "sender": "Anonym"
-  },
-  {
-    "id": "355b192c-1de2-4b5b-96b0-35911c2dd115",
-    "date": "2025-09-20T20:10:07.495Z",
-    "text": "Øv, det gør mig ked af det at høre BIG G, Anonym 🫂",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "4ad760ac-5a68-438e-baa4-fda9f7ea16d2",
-    "date": "2025-09-20T20:11:43.780Z",
-    "text": "hej",
-    "sender": "Anonym"
-  },
-  {
-    "id": "70a54630-d6a8-4af0-a46d-8e2d972aa5d3",
-    "date": "2025-09-20T20:11:43.783Z",
-    "text": "Hvaså løve hvordan kan jeg hjælpe dig idag? 🤙🏾",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "71377ce8-6b6b-4e14-a0c3-60bfc104f833",
-    "date": "2025-09-21T10:16:27.003Z",
-    "text": "hej",
-    "sender": "hani"
-  },
-  {
-    "id": "b1a192a1-2a4e-4920-8d67-1b3ea2cb882d",
-    "date": "2025-09-21T10:16:27.004Z",
-    "text": "Goddag løve – god eftermiddag 🌤️",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "b3f99023-bd5d-4e7b-82da-003dfe40290a",
-    "date": "2025-09-21T10:48:53.205Z",
-    "text": "hej",
+    "id": "def1813a-580c-4aab-86d7-73ac26abea4a",
+    "date": "2025-09-25T14:20:53.696Z",
+    "text": "ved du hvordan man laver kage",
     "sender": "Hani"
   },
   {
-    "id": "a85714af-3c3f-4581-b169-fc83f6a6fd32",
-    "date": "2025-09-21T10:48:53.206Z",
-    "text": "Goddag løve – god eftermiddag 🌤️",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "99bdf65b-15b9-448b-8b21-1025754b0478",
-    "date": "2025-09-21T10:50:08.046Z",
-    "text": "hej",
-    "sender": "Hani"
-  },
-  {
-    "id": "0bf7bacf-9a5e-4f94-af64-6ce2432990f9",
-    "date": "2025-09-21T10:50:08.047Z",
-    "text": "Halløj løve!",
-    "sender": "Hanibot"
-  },
-  {
-    "id": "3df71444-26e7-44d4-8b6a-c3bca0ec63b1",
-    "date": "2025-09-21T11:48:18.220Z",
-    "text": "hej",
-    "sender": "Hani"
-  },
-  {
-    "id": "81f4d644-052a-434f-badd-c71dbe990169",
-    "date": "2025-09-21T11:48:18.220Z",
-    "text": "Hvaså løve hvordan kan jeg hjælpe dig idag? 🤙🏾",
-    "sender": "Hanibot"
+    "id": "f2ac6623-2c0d-4c28-bb06-3780a92d766c",
+    "date": "2025-09-25T14:20:56.527Z",
+    "text": "Ja, jeg kan hjælpe! Hvilken type kage vil du gerne lave? En simpel chokoladekage eller måske en klassisk lagkage?",
+    "sender": "Chatbot"
   }
 ]
