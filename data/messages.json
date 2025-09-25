@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "9017585d-c18b-46b4-9649-7a9281668e88",
+    "date": "2025-09-25T16:52:30.246Z",
+    "text": "hvordan laver jeg pasta",
+    "sender": "Hani"
+  },
+  {
+    "id": "daf76828-ce38-4b9e-bf1f-312ecb94b279",
+    "date": "2025-09-25T16:52:35.285Z",
+    "text": "Hej Hani! Her er en simpel opskrift på pasta:\n\n1. **Ingredienser**:\n   - 2 kopper hvedemel\n   - 3 æg\n   - En knivspids salt\n\n2. **Fremgangsmåde**:\n   - Hæld melet på en ren overflade og lav en fordybning i midten.\n   - Slå æggene ud i fordybningen, og tilsæt salt.\n   - Brug en gaffel til at blande æggene med melet, indtil det begynder at samle sig.\n   - Ælt dejen i ca. 10 minutter, indtil den er glat og elastisk.\n   - Læg dejen i plastfolie og lad den hvile i 30 minutter.\n   - Rul dejen ud til den ønskede tykkelse og skær den i den ønskede form.\n   - Kog pastaen i",
+    "sender": "Chatbot"
+  },
+  {
+    "id": "7c2780e5-91ee-4399-a1d1-3f0ce717646a",
+    "date": "2025-09-25T17:09:38.736Z",
+    "text": "hej",
+    "sender": "hani"
+  },
+  {
+    "id": "e0ca9175-8e74-4447-bd93-3d0f4c1ada57",
+    "date": "2025-09-25T17:09:38.740Z",
+    "text": "Halløj løve!",
+    "sender": "Chatbot"
+  },
+  {
+    "id": "859ec87d-0fb6-4f1f-93c8-48bdfa80a69d",
+    "date": "2025-09-25T17:09:54.126Z",
+    "text": "hej",
+    "sender": "hani"
+  },
+  {
+    "id": "0c52f633-37fa-4e5a-a6bd-3c85376a86f8",
+    "date": "2025-09-25T17:09:54.127Z",
+    "text": "Goddag løve – god aften 🌙",
+    "sender": "Chatbot"
+  },
+  {
+    "id": "4da7d363-c27e-4642-b9c1-5fa07e7bfe4f",
+    "date": "2025-09-25T17:10:14.571Z",
+    "text": "hvad hedder du",
+    "sender": "hani"
+  },
+  {
+    "id": "5814f172-606a-4d67-8cc9-a7904caa2992",
+    "date": "2025-09-25T17:10:16.106Z",
+    "text": "Jeg hedder ChatGPT. Hvordan kan jeg hjælpe dig i dag?",
+    "sender": "Chatbot"
+  },
+  {
+    "id": "d7852c81-f6cf-49ca-9013-c3d66f05233e",
+    "date": "2025-09-25T17:11:47.315Z",
+    "text": "hej",
+    "sender": "hani"
+  },
+  {
+    "id": "36d25b65-8939-4e34-9752-dc8e54ac70e6",
+    "date": "2025-09-25T17:11:47.317Z",
+    "text": "Goddag løve – god aften 🌙",
+    "sender": "Chatbot"
+  }
+]
